@@ -4,6 +4,7 @@ import random as r
 
 def iscorrect(l):
 	return l.isalpha() and len(l) == 1
+	
 def posbegin(w):
 	if len(w) % 2 == 0:
 		res = ((-(len(w) / 2 - 1) * 50)-5,-150)
@@ -29,53 +30,48 @@ def reveal(l,i):
 	p_l.forward(i*50)
 	p_l.write(letter,False,align = "center",font = ("Arial",30,"normal"))
 
-def gallow():
-	p_e.speed(0)
-	p_e.forward(400)
-	p_e.backward(800)
-	p_e.forward(300)
-	p_e.left(90)
-	p_e.forward(250)
-	p_e.right(90)
-	p_e.forward(100)
-	p_e.right(90)
-	p_e.forward(25)
-
-def head():
-	p_e.right(90)
-	p_e.circle(20,360)
-	p_e.left(90)
-	p_e.penup()
-	p_e.forward(40)
-	p_e.pendown()
-
-def body():
-	p_e.forward(100)
-	p_e.backward(80)
-
-def first_arm():
-	p_e.left(30)
-	p_e.forward(50)
-	p_e.backward(50)
-	p_e.right(30)
-
-def second_arm():
-	p_e.right(30)
-	p_e.forward(50)
-	p_e.backward(50)
-	p_e.left(30)
-
-def first_leg():
-	p_e.forward(80)
-	p_e.left(30)
-	p_e.forward(50)
-	p_e.backward(50)
-	p_e.right(30)
-
-def second_leg():
-	p_e.right(30)
-	p_e.forward(50)
-	t.bgcolor("red")
+def error(e):
+	if e == 1:
+		p_e.speed(0)
+		p_e.forward(400)
+		p_e.backward(800)
+		p_e.forward(300)
+		p_e.left(90)
+		p_e.forward(250)
+		p_e.right(90)
+		p_e.forward(100)
+		p_e.right(90)
+		p_e.forward(25)
+	elif e == 2:
+		p_e.right(90)
+		p_e.circle(20,360)
+		p_e.left(90)
+		p_e.penup()
+		p_e.forward(40)
+		p_e.pendown()
+	elif e ==3:
+		p_e.forward(100)
+		p_e.backward(80)
+	elif e ==4:
+		p_e.left(30)
+		p_e.forward(50)
+		p_e.backward(50)
+		p_e.right(30)
+	elif e ==5:
+		p_e.right(30)
+		p_e.forward(50)
+		p_e.backward(50)
+		p_e.left(30)
+	elif e ==6:
+		p_e.forward(80)
+		p_e.left(30)
+		p_e.forward(50)
+		p_e.backward(50)
+		p_e.right(30)
+	elif e ==7:
+		p_e.right(30)
+		p_e.forward(50)
+		t.bgcolor("red")
 
 t.title("Jeu du Pendu")
 
@@ -103,23 +99,14 @@ while replay == 1:
 	p_t_l.speed(0)
 
 	selected_word = words[r.randint(0,len(words)-1)]
-
 	letters = set(selected_word)
-
 	tested_letters = set()
-
 	found = False
-
 	num_error = 0
-
 	shadow_word(selected_word)
-
 	pos1 = posbegin(selected_word)
-
 	p_t_l.setpos(-300,-250)
-
 	a = ""
-
 	while not found and num_error < 7:
 		letter = t.textinput("Input",a + "Lettre :")
 		a = ""
@@ -137,18 +124,11 @@ while replay == 1:
 				p_t_l.write(letter,False,align = "center",font = ("Arial",15,"normal"))
 				p_t_l.forward(30)
 				num_error += 1
-				if num_error == 1:gallow()
-				elif num_error == 2:head()
-				elif num_error == 3:body()
-				elif num_error == 4:first_arm()
-				elif num_error == 5:second_arm()
-				elif num_error == 6:first_leg()
-				elif num_error == 7:second_leg()
+				error(num_error)
 		elif letter in tested_letters:
 			a = "Lettre déjà entroduite!\n"
 		else:
 			a = "Input incorrect!\n"
-
 
 		found = (letters - tested_letters) == set()
 
